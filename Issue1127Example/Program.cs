@@ -44,7 +44,7 @@ namespace Issue1127ExampleConsoleApp
             catch (Exception exs)
             {
                 string msg = exs.Message;
-                Console.Error.WriteLine($"We don't intended an exception this uses the good schema, but we got: \"{msg}\"");
+                Console.Error.WriteLine($"We don't intend an exception this uses the good schema, but we got: \"{msg}\"");
             }
         }
     }

@@ -22,9 +22,10 @@ namespace Issue1127ExampleConsoleApp
             try
             {
                 DirectoryInfo schemasPath = new DirectoryInfo($"{currentDir}{separator}..{separator}..{separator}..{separator}");
-                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}bad.xsd\"");
+                const string fileName = "bad.xsd";
+                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}{fileName}\"");
                 XmlSchemaSet schema = new XmlSchemaSet();
-                schema.Add(XMLNamespace, $"{schemasPath.FullName}bad.xsd");
+                schema.Add(XMLNamespace, $"{schemasPath.FullName}{fileName}");
                 schema.Compile();
             }
             catch (System.Xml.Schema.XmlSchemaException exs)
@@ -36,9 +37,10 @@ namespace Issue1127ExampleConsoleApp
             try
             {
                 DirectoryInfo schemasPath = new DirectoryInfo($"{currentDir}{separator}..{separator}..{separator}..{separator}");
-                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}good.xsd\"");
+                const string fileName = "bad.xsd";
+                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}{fileName}\"");
                 XmlSchemaSet schema = new XmlSchemaSet();
-                schema.Add(XMLNamespace, $"{schemasPath.FullName}good.xsd");
+                schema.Add(XMLNamespace, $"{schemasPath.FullName}{fileName}");
                 schema.Compile();
             }
             catch (Exception exs)

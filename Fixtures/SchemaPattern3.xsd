@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:e="https://example.com/schema/1.0"
+           xmlns:example="https://example.com/schema/1.0"
+           elementFormDefault="qualified"
+           targetNamespace="https://example.com/schema/1.0"
+           version="0.0.1">
+	<xs:element name="letterA" type="example:letterA"/>
+	<xs:simpleType name="letterA">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+				<xs:pattern value="[&#x41;-&#x5a;]">
+				<xs:annotation>
+					<xs:documentation>Unicode escaped character ranges.</xs:documentation>
+				</xs:annotation>
+			</xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -31,6 +31,6 @@ dotnet test
 | SchemaPattern3 | [&amp;#x41;-&amp;#x5a;]  | A  | a  | matches A-Z (range) |  | X | X |  |
 | SchemaPattern4 | [\d-[0]]\D | 7A | 0A | character class with exclusion |  | X | X |  |
 | SchemaPattern5 | &amp;#x10000; | &amp;#x10000; | &amp;#x10001; | Unicode |  | X | X |  |
-| SchemaPattern6 | [&amp;#x10000;-&amp;#xeffff;] | &amp;#x10000; | &amp;#x41; | big range of upper Unicode | X |  |  |   |  |
-| SchemaPattern7 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &amp;#x41; | &amp;#x10000; | XML name characters except for big range of upper Unicode | X |  |  |   | |
-| SchemaPattern8 | [&amp;#x10000;-&amp;#x10010;] | &amp;#x41; | &amp;#x10000; |  |   |  |  |   | |
+| SchemaPattern6 | [&amp;#x10000;-&amp;#xeffff;] | &amp;#x10000; | &amp;#x41; | big range of upper Unicode | X |  |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern7 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &amp;#x41; | &amp;#x10000; | XML name characters except for big range of upper Unicode | X |  |  |  `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern8 | [&amp;#x10000;-&amp;#x10010;] | &amp;#x10001; | &amp;#x41; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |

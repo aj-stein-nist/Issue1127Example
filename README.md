@@ -37,4 +37,31 @@ dotnet test
 | SchemaPattern9 | `\c` | &amp;#x41; | % | More unicode range testing | | X | X |  |
 | SchemaPattern10 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &#x10000; | &#x42; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
 | SchemaPattern11 | [&amp;#x10000;-&amp;#x10010;] | A1 | 1A | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern12 | [\i-[:]][\c-[:]]* | &#x41;1 | 1&#x61; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern12 | [\i-[:]][\c-[:]]* | &#x41;1 | 1&#x61; | More unicode range testing |  | X | X | |
+
+## What Do Class Properties Mean in Tests?
+
+OK, let's look at this test.
+
+```
+        public void Invalid()
+        {
+            string schema = $"{fixture.contextPath}{pattern}.xsd";
+            XDocument document = XDocument.Load($"{fixture.contextPath}{pattern}Invalid.xml");
+            XmlValidator validator = new XmlValidator(fixture.namespaceUri, fixture.namespacePrefix, schema, document);
+            validator.Validate();
+            Assert.True(
+                !validator.hasRuntimeErrors &&
+                validator.hasValidationErrors &&
+                validator.hasCompletedValidation
+                );
+        }
+```
+
+What do the `validator` boolean attributes mean and how do they relate to the testing rubric?
+
+- `validator.hasRuntimeErrors`: when loading the XML document, the schema, or compiling the schema into native form in the .NET runtime, there was an exception. Given our tests, this most always means the XML schema's XSD file is invalid, and what are often testing here. This attribute equates to `Schema Fails to Compile w/ Runtime Error?` in the table above.
+
+- `validator.hasValidationErrors`: when validating the XML document against the schema, `false` means it was validated successfully without errors. A value of `true` means it validated and errors were found. Not used explicitly in the test, the `List<string>` list of validation errors can be retrieved with `validator.validationErrors` attribute of the class instance. This attribute determines whether `Accepts Valid XML?` `Rejects Invalid XML?` columns and explain "did the schema validate as intended?" scenarios.
+
+- `validator.hasCompletedValidation`: when validating the XML document, a schema validation attempt _may_ throw an exception and we want to be aware of that. This field should always have a value of `true` or we had unexpected behavior in our tests, this can be checked in conjuction with `hasRuntimeErrors` to know if schema compilation was successful, validation occurred, but values in a test document caused trouble.

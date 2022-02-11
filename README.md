@@ -33,3 +33,4 @@ dotnet test
 | SchemaPattern5 | &amp;#x10000; | &amp;#x10000; | &amp;#x10001; | Unicode |  | X | X |  |
 | SchemaPattern6 | [&amp;#x10000;-&amp;#xeffff;] | &amp;#x10000; | &amp;#x41; | big range of upper Unicode | X |  |  |   |  |
 | SchemaPattern7 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &amp;#x41; | &amp;#x10000; | XML name characters except for big range of upper Unicode | X |  |  |   | |
+| SchemaPattern8 | [&amp;#x10000;-&amp;#x10010;] | &amp;#x41; | &amp;#x10000; |  |   |  |  |   | |

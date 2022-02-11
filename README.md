@@ -35,3 +35,6 @@ dotnet test
 | SchemaPattern7 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &amp;#x41; | &amp;#x10000; | XML name characters except for big range of upper Unicode | X |  |  |  `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
 | SchemaPattern8 | [&amp;#x10000;-&amp;#x10010;] | &amp;#x10001; | &amp;#x41; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
 | SchemaPattern9 | `\c` | &amp;#x41; | % | More unicode range testing | | X | X |  |
+| SchemaPattern10 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &#x10000; | &#x42; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern11 | [&amp;#x10000;-&amp;#x10010;] | A1 | 1A | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern12 | [\i-[:]][\c-[:]]* | &#x41;1 | 1&#x61; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |

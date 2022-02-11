@@ -2,10 +2,7 @@
 
 ## Background
 
-This is a reproduction repo to explain and experiment with [usnistgov/OSCAL#1127](https://github.com/usnistgov/OSCAL/issues/1127) with a minimal viable examples.
-
-1. [good.xsd](./Issue1127Example/good.xsd), an example XML Schema that does not causes the exception in question.
-1. [bad.xsd](./Issue1127Example/good.xsd), an example XML Schema that will cause the exception in question.
+This is a reproduction repo to explain and experiment with [usnistgov/OSCAL#1127](https://github.com/usnistgov/OSCAL/issues/1127) with a set of minimal viable examples.
 
 ## Build Environment
 

@@ -14,39 +14,46 @@ namespace Issue1127ExampleConsoleApp
     {
         static string currentDir = System.AppDomain.CurrentDomain.BaseDirectory.ToString();
         static string separator = Path.DirectorySeparatorChar.ToString();
-
-        protected const string XMLNamespace = @"https://example.com/schema/1.0";
+        static XNamespace xmlNamespaceUri = "https://example.com/schema/1.0";
+        protected const string xmlNamespacePrefix = "example";
 
         static void Main(string[] args)
         {
-            try
-            {
-                DirectoryInfo schemasPath = new DirectoryInfo($"{currentDir}{separator}..{separator}..{separator}..{separator}");
-                const string fileName = "bad.xsd";
-                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}{fileName}\"");
-                XmlSchemaSet schema = new XmlSchemaSet();
-                schema.Add(XMLNamespace, $"{schemasPath.FullName}{fileName}");
-                schema.Compile();
-            }
-            catch (System.Xml.Schema.XmlSchemaException exs)
-            {
-                string msg = exs.Message;
-                Console.WriteLine($"We got the intended exception, reproducting the error: \"{msg}\"");
-            }
+            string[] schemaFileNames = new string[] { 
+                "character_group_word.xsd",
+                "character_group_xml_unicode_ranges.xsd",
+                "single_ascii_character.xsd",
+                "single_escaped_unicode_character.xsd"
+            };
 
-            try
+            foreach (var fileName in schemaFileNames)
             {
-                DirectoryInfo schemasPath = new DirectoryInfo($"{currentDir}{separator}..{separator}..{separator}..{separator}");
-                const string fileName = "bad.xsd";
-                Console.WriteLine($"Attemping schema compilation with \"{schemasPath.FullName}{fileName}\"");
-                XmlSchemaSet schema = new XmlSchemaSet();
-                schema.Add(XMLNamespace, $"{schemasPath.FullName}{fileName}");
-                schema.Compile();
-            }
-            catch (Exception exs)
-            {
-                string msg = exs.Message;
-                Console.Error.WriteLine($"We don't intend an exception this uses the good schema, but we got: \"{msg}\"");
+                try
+                {
+                    DirectoryInfo schemasPath = new DirectoryInfo($"{currentDir}{separator}..{separator}..{separator}..{separator}");   
+                    Console.WriteLine($"\n\nAttemping schema compilation with \"{schemasPath.FullName}{fileName}\"");
+                    XmlSchemaSet schema = new XmlSchemaSet();
+                    schema.Add(xmlNamespaceUri.ToString(), $"{schemasPath.FullName}{fileName}");
+                    schema.Compile();
+
+                    XDocument sample = new XDocument(
+                        new XElement(xmlNamespaceUri + "letterA", "B")
+                    );
+
+                    bool errors = false;
+                    sample.Validate(schema, (o, e) => {
+                        Console.WriteLine($"\t{fileName}: {e.Message}");
+                        errors = true;
+                    });
+
+                    Console.WriteLine("file {0}", errors ? "did not validate" : "validated");
+                }
+                catch (Exception exs)
+                {
+                    string msg = exs.Message;
+                    Console.Error.WriteLine($"\t Exception with {fileName}: \"{msg}\"");
+                }
+
             }
         }
     }

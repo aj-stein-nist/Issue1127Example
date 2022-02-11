@@ -7,4 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="single_escaped_unicode_character.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="single_ascii_character.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
 </Project>

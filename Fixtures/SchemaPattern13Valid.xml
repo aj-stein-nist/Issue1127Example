@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" ?>
+<parent xmlns="https://example.com/schema/1.0">
+  <token>Straßer</token>
+  <token>Müller</token>
+  <token>Adèle</token>
+  <token>Yiğit</token>
+  <token>ğ0.</token>
+</parent>

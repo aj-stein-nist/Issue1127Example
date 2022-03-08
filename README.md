@@ -23,18 +23,19 @@ dotnet test
 
 | ID | Regexp  | Valid  | Invalid  | Rationale | Schema Fails to Compile w/ Runtime Error? | Accepts Valid XML? | Rejects Invalid XML? | Notes |
 |---|---|---|---|---|---|---|---|---|
-| SchemaPattern1 | &amp;#x41;  | A  | B  | matches only "A" (numeric character reference) |  | X | X |  |
-| SchemaPattern2 | A  | A  | B  | literal |  | X | X |  |
-| SchemaPattern3 | [&amp;#x41;-&amp;#x5a;]  | A  | a  | matches A-Z (range) |  | X | X |  |
-| SchemaPattern4 | [\d-[0]]\D | 7A | 0A | character class with exclusion |  | X | X |  |
-| SchemaPattern5 | &amp;#x10000; | &amp;#x10000; | &amp;#x10001; | Unicode |  | X | X |  |
-| SchemaPattern6 | [&amp;#x10000;-&amp;#xeffff;] | &amp;#x10000; | &amp;#x41; | big range of upper Unicode | X |  |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern7 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &amp;#x41; | &amp;#x10000; | XML name characters except for big range of upper Unicode | X |  |  |  `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern8 | [&amp;#x10000;-&amp;#x10010;] | &amp;#x10001; | &amp;#x41; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern9 | `\c` | &amp;#x41; | % | More unicode range testing | | X | X |  |
-| SchemaPattern10 | [\c-[&amp;#x10000;-&amp;#xeffff;]] | &#x10000; | &#x42; | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern11 | [&amp;#x10000;-&amp;#x10010;] | A1 | 1A | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
-| SchemaPattern12 | [\i-[:]][\c-[:]]* | &#x41;1 | 1&#x61; | More unicode range testing |  | X | X | |
+| SchemaPattern1 | `&amp;#x41;`  | `A`  | `B`  | matches only "A" (numeric character reference) |  | X | X |  |
+| SchemaPattern2 | `A`  | `A`  | `B`  | literal |  | X | X |  |
+| SchemaPattern3 | `[&amp;#x41;-&amp;#x5a;]`  | `A`  | `a`  | matches A-Z (range) |  | X | X |  |
+| SchemaPattern4 | `[\d-[0]]\D` | `7A` | `0A` | character class with exclusion |  | X | X |  |
+| SchemaPattern5 | `&amp;#x10000;` | `&amp;#x10000;` | `&amp;#x10001;` | Unicode |  | X | X |  |
+| SchemaPattern6 | `[&amp;#x10000;-&amp;#xeffff;]` | `&amp;#x10000;` | `&amp;#x41;` | big range of upper Unicode | X |  |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern7 | `[\c-[&amp;#x10000;-&amp;#xeffff;]]` | `&amp;#x41;` | `&amp;#x10000;` | XML name characters except for big range of upper Unicode | X |  |  |  `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern8 | `[&amp;#x10000;-&amp;#x10010;]` | `&amp;#x10001;` | `&amp;#x41;` | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern9 | `\c` | `&amp;#x41;` | `%` | More unicode range testing | | X | X |  |
+| SchemaPattern10 | `[\c-[&amp;#x10000;-&amp;#xeffff;]]` | `&#x10000;` | `&#x42;` | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern11 | `[&amp;#x10000;-&amp;#x10010;]` | `A1` | `1A` | More unicode range testing | X |   |  | `"The Pattern constraining facet is invalid - Invalid pattern ..."` |
+| SchemaPattern12 | `[\i-[:]][\c-[:]]*` | `&#x41;1` | `1&#x61;` | More unicode range testing |  | X | X | |
+| SchemaPattern13 | `^(\p{L}|_)(\p{L}|\p{N}|[.\-_])*$` | `ğ0.`| `.🚀🛑` | Testing recommended fix from usnistgov/metaschema#191 |  | X | X | |
 
 ## What Do Class Properties Mean in Tests?
 
